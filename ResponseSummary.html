@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <title></title>
+        <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="themeKaizala.css" />
 	</head>
 	<body onload="onPageLoad()">
@@ -13,7 +14,8 @@
 			<div id="details"></div>
         </div>
         
-        <script type="text/javascript" src="KASClient.js"></script>
+        <script type="text/javascript" src="KASClientCore.js"></script>
+        <script type="text/javascript" src="KASClientUI.js"></script>
 		<script>
             // Type aliases (short names)
             var KASFormPageNavigator = KASClient.UI.KASFormPageNavigator;
@@ -36,11 +38,6 @@
             var _district = "";
             var _longAddress = "";
             var _shortAddress = "";
-            var albumViewModel = new KASClient.UI.KASAlbumViewModel();
-            // albumViewModel.showRemoveButton = false;
-            albumViewModel.hasStaticContent = false;
-            albumViewModel.enableOnTap = false;
-            var albumViewHandler = new KASClient.UI.KASAlbumViewHandler(albumViewModel);
 
             function inflateHeader(questions) {
                 var header = document.getElementById("header");
@@ -48,7 +45,7 @@
 
                 var navigationBar = new KASClient.UI.KASFormPageNavigationBar();
 
-                navigationBar.iconPath = "icon-business.png";
+                navigationBar.iconPath = "facial-recognition.png";
 
                 var mainText = KASClient.UI.getElement("div", {
                     "font-size": "18px",
@@ -159,7 +156,7 @@
                 }
 
                 var errorPage = new KASFormPage();
-                errorPage.navigationBar.iconPath = "livestock.png";
+                errorPage.navigationBar.iconPath = "facial-recognition.png";
                 errorPage.navigationBar.title = _strings["strMiniAppTitle"];
                 errorPage.moduleContainer.backgroundColor = "white";
 
@@ -260,78 +257,24 @@
 
                         let details;
                         
-                        if(fieldType == 8){
-                            //let _images = [];
-                            // details = questionResponse;
-                            // alert(questionResponse);
-                            // let jsonImages = JSON.parse(questionResponse);
-                            // // alert(questionResponse);
-                            // // jsonImages.map((image) => {
-                            // //     _images.push(image['spu']);
-                            // //     if(!image['spu']){
-                            // //         _images.push(image['lpu']); 
-                            // //     }
-                            // // });
-                            // let imagesSubmitted = KASClient.UI.KASImageGridAlbumView("", selectedAttachments[i], false, null, null);
-                            // let imageAttachmentList = JSON.parse(questionResponse);
-                            // var imageInputModule = new KASClient.UI.KASFormModule();
-                            // var imageWrapperDiv = KASClient.UI.getElement("div", { "width": "100%", "height": "224px", "display": "none" });
-                            // if (imageAttachmentList) {
-                            //     if (imageWrapperDiv.style.display == "none") {
-                            //         imageWrapperDiv.style.display = "block";
-                            //         imageWrapperDiv.style.height = "200px";
-                            //     }
-                            //     albumViewHandler.model.imageObjects = imageAttachmentList;
-                            //     albumViewHandler.model.enableOnTap = false;
-                            //     albumViewHandler.refreshAlbumView();
-                            // }
-                            // else {
-                               
-                            //     imageWrapperDiv.style.display = "none";
-                            //     imageWrapperDiv.style.height = "0px";
-                            // }
-                            // alert(JSON.stringify(imageAttachmentList));
-                            // imageWrapperDiv.scrollIntoView();
-                            // alert(4);
-                            // KASClient.UI.addElement(albumViewHandler.getAlbumView(), imageWrapperDiv);
-                            // alert(5);
-                            // imageInputModule.contentView = imageWrapperDiv;
-                            //let _images = [];
-                            // details = questionResponse;
-                            // alert(questionResponse);
-                            // let jsonImages = JSON.parse(questionResponse);
-                            // // alert(questionResponse);
-                            // // jsonImages.map((image) => {
-                            // //     _images.push(image['spu']);
-                            // //     if(!image['spu']){
-                            // //         _images.push(image['lpu']); 
-                            // //     }
-                            // // });
-                            // // let jsonString = JSON.stringify(jsonImages[0]["spu"]);
-                            // // alert(JSON.stringify(_images));
-                            // var _attachmentsList = jsonImages;
-                            // var gridContainerView = KASClient.UI.getElement("div", { "padding-bottom": "5px" });
-                            // var _gridView = new KASClient.UI.KASImageGridAlbumView("", jsonImages, true, null, null);
-                        
-                            // //adds image element to the imageDiv
-                            // KASClient.UI.addElement(_gridView.getView(), gridContainerView);
+                        if(fieldType == 6){
+                            details = questionResponse;
+                        }
+
+                        else if (fieldType == 8) {
                             let jsonImages = JSON.parse(questionResponse);
-                            let img = '<div>';
+                            let img = "";
                             jsonImages.map((image) => {
-                                // _images.push(image['spu']);
-                                img += "<img src='"+image['spu'] +"' alt='Image' style='width:30%;height:15%;margin-right:3px;'>";
+                                img += "<div style='margin:10px;'><img src='"+image['spu'] +"' alt='Image' style='width:100%;'></div>";
                             });
-                            img += "</div>";
-
-                            var imageWrapperDiv = KASClient.UI.getElement("div", { 
-                            "display":"flex",
-                            "flex-direction":"column",
-                            "justify-content":"space-around"
+                            details = KASClient.UI.getElement("div", {
+                                "color": "#32485f",
+                                "font-size": "12pt",
+                                "overflow-wrap": "break-word",
+                                "word-wrap": "break-word",
+                                "word-break": "break-word"
                             });
-                            //alert(img);
-                            imageWrapperDiv.innerHTML = img;
-
-                            KASClient.UI.addElement(imageWrapperDiv, detailsView);
+                            details.innerHTML = img;
                         }
                         
                         else {
