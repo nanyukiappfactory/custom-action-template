@@ -1,11 +1,11 @@
 {
-    "id": "com.nanyukiaf.facerecognition.auth",
+    "id": "com.your.package.id",
     "schemaVersion": 1,
     "version": "1",
-    "minorVersion": 21,
-    "providerName": "NanyukiAF",
-    "displayName": "Authentication",
-    "description": "Employee Authentication",
+    "minorVersion": 1,
+    "providerName": "{Your Name}",
+    "displayName": "{Action Card Name}",
+    "description": "{Action Card Description}",
     "icon": "facial-recognition.png",
     "appModel": "AppModel.json",
     "dials": {
